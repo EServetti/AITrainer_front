@@ -1,0 +1,132 @@
+.chat {
+  min-height: 100vh;
+  width: 70%;
+  min-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  box-sizing: border-box;
+  padding: 20px;
+  padding-top: 40px;
+  box-shadow: inset 0px 0px 20px 0px black;
+  border-radius: 15px;
+}
+
+.message {
+  width: 50%;
+  min-width: 470px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  gap: 5px;
+}
+
+.message-bot {
+  margin-left: auto;
+}
+
+.message-user {
+  margin-right: auto;
+}
+
+.sender_img {
+  height: 32px;
+  width: 32px;
+  margin: 5px;
+  padding: 5px;
+  margin-bottom: auto;
+  border: 1px solid #0078d7;
+  border-radius: 50%;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.user_button {
+  color: #0078d7;
+  background-color: white;
+  padding: 5px;
+  border: 1px solid #0078d7;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.message input {
+  width: 50%;
+  padding: 10px;
+  border: none;
+}
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  color: #0078d7;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #0078d7;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg); 
+  }
+  to {
+    transform: rotate(360deg); 
+  }
+}
+
+.errors {
+    color: red;
+}
+
+/* planes */
+.plans_container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.plan {
+  border: 1px solid #0078d7;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.plan_day {
+  border-bottom: 1px solid #0078d7;
+}
+
+.exercises {
+  display: flex;
+  flex-direction: column;
+}
+
+.exercise {
+  padding: 5px;
+  border-bottom: 1px solid #0078d7;
+}
+
+.copy {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.copy img {
+  height: 23;
+  width: 23px;
+}
