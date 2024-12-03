@@ -1,5 +1,5 @@
 .chat {
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   width: 70%;
   min-width: 700px;
   display: flex;
@@ -57,6 +57,10 @@
   width: 50%;
   padding: 10px;
   border: none;
+}
+
+.message select {
+  width: 40%;
 }
 
 .loadingContainer {
