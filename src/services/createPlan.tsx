@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Info, sleep } from "../pages/home";
 import { path } from "../path";
-import { Message } from "../hooks/useChat";
+import { Message } from "../pages/home";
 import returnPlan from "./returnPlan";
 
 async function createPlan(

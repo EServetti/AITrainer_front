@@ -17,9 +17,9 @@ a {
     color: #0078D7;
 }
 
-.about {
-    margin-right: 20%;
+nav .about {
     white-space: nowrap;
+    margin-right: 20%;
 }
 
 .logo {

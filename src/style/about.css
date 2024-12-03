@@ -1,0 +1,27 @@
+.main_about {
+    width: 80%;
+    height: calc(100vh - 80px);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main_about .about {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #0078d7;
+    padding: 10px;
+}
+
+.contact {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
