@@ -34,7 +34,7 @@ function Home() {
     if (endOfMessagesRef.current && chatRef.current) {
       const chat = chatRef.current;
       
-      if (chat.scrollHeight > chat.clientHeight) {
+      if (chat.scrollHeight > chat.clientHeight -70) {
         endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
       }
     }

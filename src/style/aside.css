@@ -8,9 +8,8 @@ aside {
     align-items: center;
     flex-direction: column;
     padding: 10px;
-    margin-right: 50px;
     background-color: #E0E2E8;
-    box-shadow: inset -10px 0 25px 0px black;
+    box-shadow:  0 0 5px 0px black;
     border-radius: 15px;
 }
 
