@@ -1,15 +1,14 @@
-import './App.css'
-import Main from './components/body'
-import NavBar from './components/navBar'
+import Main from "./components/body";
+import NavBar from "./components/navBar";
+import { ConversationProvider } from "./context/conversationContext";
 
 function App() {
-
   return (
-    <>
-    <NavBar/>
-    <Main/>
-    </>
-  )
+    <ConversationProvider>
+      <NavBar />
+      <Main />
+    </ConversationProvider>
+  );
 }
 
-export default App
+export default App;
