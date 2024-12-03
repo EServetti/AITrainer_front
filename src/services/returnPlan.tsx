@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Message } from "../hooks/useChat";
+import { Message } from "../pages/home";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import copy from "../assets/copy.png";
 
