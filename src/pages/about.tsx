@@ -16,7 +16,7 @@ function About() {
         Si quisieras contactarme, puedes hacerlo a través de los siguientes medios:
         <ul>
           <li>
-            <a href="https://eservetti.github.io/My-portfolio/">Mi portafolio.</a>
+            <a href="https://emilio-servetti.vercel.app/">Mi portafolio.</a>
           </li>
           <li>
             <a href="https://github.com/EServetti">Git Hub.</a>
