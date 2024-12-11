@@ -1,6 +1,9 @@
 aside {
     min-height: calc(100vh - 80px);
     width: 15%;
+    position: fixed;
+    left: 10px;
+    top: 70px;
     min-width: 150px;
     box-sizing: border-box;
     display: flex;
@@ -11,6 +14,7 @@ aside {
     background-color: #E0E2E8;
     box-shadow:  0 0 5px 0px black;
     border-radius: 15px;
+    margin-right: auto;
 }
 
 aside li {

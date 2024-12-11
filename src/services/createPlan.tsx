@@ -1,8 +1,8 @@
 import axios from "axios";
-import { Info, sleep } from "../pages/home";
+import { sleep } from "../pages/home";
 import { path } from "../path";
-import { Message } from "../pages/home";
 import returnPlan from "./returnPlan";
+import { Info, Message } from "../types";
 
 async function createPlan(
   infoUser: Info,
@@ -21,6 +21,7 @@ async function createPlan(
           <div className="spinner"></div>
         </div>
       ),
+      typeOfAnswer: null
     },
   ]);
   axios
@@ -37,9 +38,10 @@ async function createPlan(
         deleteMessages("cargando");
         deleteMessages("create_button")
         addNewMessage([{
-          id_message: "sending_plans",
+          id_message: "enviando_mensaje",
           sender: "bot",
-          text: "Aqui tienes un plan de entrenamiento que se ajusta a tus especificaciones:"
+          text: "Aqui tienes un plan de entrenamiento que se ajusta a tus especificaciones:",
+          typeOfAnswer: null
         }])
         sleep(1000)
         returnPlan(response.message, addNewMessage)

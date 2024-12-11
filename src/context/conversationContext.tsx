@@ -79,7 +79,6 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
   useEffect(() => {
     valuesRef.current = values;
     console.log(values);
-    
   }, [values]);
 
   // crea el plan con la info del user
@@ -121,20 +120,18 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
     {
       id_message: "dias_bot",
       sender: "bot",
-      text: (
-        <div>
-          ¿Cuántos días tienes pensado entrenar? 
-        </div>
-      ),
+      text: <div>¿Cuántos días tienes pensado entrenar?</div>,
       typeOfAnswer: "number",
     },
     {
       id_message: "horas_bot",
       sender: "bot",
       text: (
-        <div>¿Cuánto tiempo quieres dedicar a cada sesión de entrenamiento?</div>
+        <div>
+          ¿Cuánto tiempo quieres dedicar a cada sesión de entrenamiento?
+        </div>
       ),
-      typeOfAnswer: "select_hours"
+      typeOfAnswer: "select_hours",
     },
     {
       id_message: "obj_bot",
@@ -146,6 +143,12 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
         </div>
       ),
       typeOfAnswer: "string",
+    },
+    {
+      id_message: "create",
+      sender: "bot",
+      text: "¡Ok, con esta información estoy listo para crear tu plan!",
+      typeOfAnswer: null,
     },
   ];
 
@@ -172,34 +175,35 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
         waitingForAnswer == false
       ) {
         addNewMessage([messagesToSend[index]]);
-        setIndex(index + 1)
+        setIndex(index + 1);
         await sleep(500);
         setwaitingForAnswer(true);
       }
       sleep(1000);
       // recolecta la info y hace el plan
-      //   if (finishedQuestions == true) {
-      //     if (errorInfo) {
-      //       deleteMessages("errores");
-      //       addNewMessage([
-      //         {
-      //           id_message: "errores",
-      //           sender: "bot",
-      //           text: (
-      //             <div>
-      //               <span>La info ingresada tiene los siguientes errores: </span>{" "}
-      //               <br />
-      //               <span className="errors">{errorInfo}</span> <br />
-      //               <span>
-      //                 Porfavor ingresa la info de manera correcta y presiona
-      //                 "Crear plan"
-      //               </span>
-      //             </div>
-      //           ),
-      //         },
-      //       ]);
-      //     }
-      //   }
+      if (finishedQuestions == true) {
+        if (errorInfo) {
+          deleteMessages("errores");
+          addNewMessage([
+            {
+              id_message: "errores",
+              sender: "bot",
+              text: (
+                <div>
+                  <span>La info ingresada tiene los siguientes errores: </span>{" "}
+                  <br />
+                  <span className="errors">{errorInfo}</span> <br />
+                  <span>
+                    Porfavor ingresa la info de manera correcta y presiona
+                    "Crear plan"
+                  </span>
+                </div>
+              ),
+              typeOfAnswer: null,
+            },
+          ]);
+        }
+      }
     }
     sendMessages();
   }, [
@@ -219,7 +223,7 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
         addNewMessage,
         deleteMessages,
         nextQuestion,
-        setValues
+        setValues,
       }}
     >
       {children}

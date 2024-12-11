@@ -1,6 +1,13 @@
+.main_home {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 .chat {
   min-height: calc(100vh - 80px);
-  width: 70%;
+  width: 65%;
   min-width: 700px;
   display: flex;
   flex-direction: column;
@@ -11,8 +18,8 @@
   padding-top: 40px;
   box-shadow: inset 0px 0px 20px 0px black;
   border-radius: 15px;
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
 }
 
 .writing_bar {
