@@ -15,6 +15,57 @@
   margin-right: auto;
 }
 
+.writing_bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: 10px;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+.writing_bar input {
+  height: 50px;
+  width: 80%;
+  padding: 5px;
+  border: none;
+  background-color: transparent;
+}
+
+.writing_bar select {
+  height: 50px;
+  width: 80%;
+  border: none;
+  color: #0078d7;
+}
+
+.send_info_button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.send_info_disabled {
+  opacity: 0.5;
+  background-color: transparent;
+  border: none;
+}
+
+.writing_bar button img {
+  width: 32px;
+}
+
+.send_info_button img:hover {
+  opacity: 0.8;
+}
+
+input::placeholder {
+  color: #0078d7;
+}
+
 .message {
   width: 50%;
   min-width: 470px;
@@ -136,3 +187,4 @@
   height: 23;
   width: 23px;
 }
+

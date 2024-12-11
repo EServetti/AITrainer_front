@@ -1,18 +1,9 @@
 import { useState } from "react";
-import { Message } from "../pages/home";
+import { Message } from "../types";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import copy from "../assets/copy.png";
+import { Plan } from "../types";
 
-interface Exercice {
-  name: string;
-  series: string;
-  repetitions: string;
-}
-
-interface Plan {
-  day: string;
-  exercises: Exercice[];
-}
 
 function PlanContainer({ plans }: { plans: Plan[] }) {
   const [copied, setCopied] = useState(false);
@@ -77,6 +68,7 @@ function returnPlan(
       id_message: "plans",
       sender: "bot",
       text: <PlanContainer plans={plans} />,
+      typeOfAnswer: null
     },
   ]);
 }

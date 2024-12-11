@@ -13,3 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+input:focus {
+  outline: none;
+}
+
+select:focus {
+  outline: none;
+}
