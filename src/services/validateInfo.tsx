@@ -17,11 +17,11 @@ function validateInfo(
   setValueInp: React.Dispatch<React.SetStateAction<any>>,
   addNewMessage: (message: Message[]) => any,
   nextQuestion: () => any,
-  setValues: React.Dispatch<React.SetStateAction<any>>,
+  setValues: React.Dispatch<React.SetStateAction<any>>
 ) {
   switch (id_question) {
     case "años_bot":
-      if (value <= 14 || value >= 70) {
+      if (typeof value === "number" && (value <= 14 || value >= 70)) {
         addNewMessage([
           {
             id_message: "errors",
@@ -52,43 +52,45 @@ function validateInfo(
       }
       break;
     case "sexo_bot":
-      const newValue = normalizeString(value);
-      if (
-        newValue === "masculino" ||
-        newValue === "femenino" ||
-        newValue === "x"
-      ) {
-        addNewMessage([
-          {
-            id_message: "sexo_user",
-            sender: "user",
-            text: `${value}`,
-            typeOfAnswer: null,
-          },
-        ]);
-        setValues((prevState: any) => ({
-          ...prevState,
-          sex: value,
-        }));
-        setValueInp("");
-        nextQuestion();
-      } else {
-        addNewMessage([
-          {
-            id_message: "errors",
-            sender: "bot",
-            text: (
-              <div className="errors">
-                Por favor elige entre "masculino", "femenino" o "x"
-              </div>
-            ),
-            typeOfAnswer: null,
-          },
-        ]);
+      if (typeof value === "string") {
+        const newValue = normalizeString(value);
+        if (
+          newValue === "masculino" ||
+          newValue === "femenino" ||
+          newValue === "x"
+        ) {
+          addNewMessage([
+            {
+              id_message: "sexo_user",
+              sender: "user",
+              text: `${value}`,
+              typeOfAnswer: null,
+            },
+          ]);
+          setValues((prevState: any) => ({
+            ...prevState,
+            sex: value,
+          }));
+          setValueInp("");
+          nextQuestion();
+        } else {
+          addNewMessage([
+            {
+              id_message: "errors",
+              sender: "bot",
+              text: (
+                <div className="errors">
+                  Por favor elige entre "masculino", "femenino" o "x"
+                </div>
+              ),
+              typeOfAnswer: null,
+            },
+          ]);
+        }
       }
       break;
     case "peso_bot":
-      if (value < 20 || value > 250) {
+      if (typeof value === "number" && (value < 20 || value > 250)) {
         addNewMessage([
           {
             id_message: "errors",
@@ -119,7 +121,7 @@ function validateInfo(
       }
       break;
     case "altura_bot":
-      if (value < 60 || value > 260) {
+      if (typeof value === "number" && (value < 60 || value > 260)) {
         addNewMessage([
           {
             id_message: "errors",
@@ -150,7 +152,7 @@ function validateInfo(
       }
       break;
     case "dias_bot":
-      if (value < 1 || value > 7) {
+      if (typeof value === "number" && (value < 1 || value > 7)) {
         addNewMessage([
           {
             id_message: "errors",
