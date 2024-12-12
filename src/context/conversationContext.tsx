@@ -1,28 +1,21 @@
-import { createContext, useState, useContext, ReactNode, useEffect, useRef } from "react";
-import { Message } from "../pages/home";
+import {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+  useRef,
+} from "react";
+import { Message } from "../types";
 import createPlan from "../services/createPlan";
-import ConfirmComponent from "../components/messagesComponent";
+import { ConversationContextType, Info } from "../types";
 
-interface ConversationContextType {
-  messages: any; 
-  setMessages: React.Dispatch<React.SetStateAction<any>>; 
-}
-
-const ConversationContext = createContext<ConversationContextType | undefined>(undefined);
+const ConversationContext = createContext<ConversationContextType | undefined>(
+  undefined
+);
 
 interface ConversationProviderProps {
-  children: ReactNode; 
-}
-
-export interface Info {
-  age: number;
-  weight: number;
-  height: number;
-  daysOfTraining: number;
-  goal: string;
-  trainingTime: string;
-  sex: string;
-  bodyPart: string;
+  children: ReactNode;
 }
 
 export function sleep(ms: number) {
@@ -31,17 +24,13 @@ export function sleep(ms: number) {
 
 export function ConversationProvider({ children }: ConversationProviderProps) {
   const [shouldContinue, setContinue] = useState<boolean>(false);
-  const [shownIntro, setShownIntro] = useState(false);
+  // const [shownIntro, setShownIntro] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
-      id_message: "bienvenida",
+      id_message: "intro",
       sender: "bot",
-      text: "Hola, bienvenido a AITrainer, seré tu entrenador personal, ¿estás listo para comenzar a crear tu nueva rutina de entrenamiento?",
-    },
-    {
-      id_message: "continuar",
-      sender: "bot",
-      text: <ConfirmComponent setContinue={setContinue} />,
+      text: "Ok, para poder crear un plan personalizado para ti necesitaré que respondas las siguientes preguntas:",
+      typeOfAnswer: null,
     },
   ]);
   const [values, setValues] = useState<Info>({
@@ -52,31 +41,18 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
     goal: "",
     trainingTime: "",
     sex: "",
-    bodyPart: "",
   });
 
-  const [waitingForAnswer, setwaitingForAnswer] = useState(false);
+  const [waitingForAnswer, setWaitingForAnswer] = useState(false);
   const [index, setIndex] = useState(0);
 
   const [finishedQuestions, setFinishedQuestions] = useState(false);
   const [errorInfo, setErrorInfo] = useState("");
 
-  // funcion para obtener los valores que ingrese el usuario
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-
-    setValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
   // funcion para dejar de esperar por la respuesta del usuario
   async function nextQuestion() {
     await sleep(1000);
-    setwaitingForAnswer(false);
+    setWaitingForAnswer(false);
   }
 
   // funcion para añadir nuevos mensajes
@@ -112,221 +88,75 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
     {
       id_message: "años_bot",
       sender: "bot",
-      text: "¿Cuántos años tienes?",
-    },
-    {
-      id_message: "años_user",
-      sender: "user",
-      text: (
-        <>
-          <input
-            name="age"
-            onChange={handleChange}
-            type="number"
-            min={14}
-            max={60}
-            placeholder="Ingresa aquí tu edad"
-          />
-          <button className="user_button" onClick={nextQuestion}>
-            Siguiente
-          </button>
-        </>
-      ),
+      text: <div>¿Cuántos años tienes?</div>,
+      typeOfAnswer: "number",
     },
     {
       id_message: "sexo_bot",
       sender: "bot",
-      text: "¿Cuál es tu género?",
-    },
-    {
-      id_message: "sexo_user",
-      sender: "user",
-      text: (
-        <>
-          <select
-            name="sex"
-            onChange={handleChange}
-            defaultValue="no especificado"
-          >
-            <option value="no especificado">No especificar</option>
-            <option value="masculino">Masculino</option>
-            <option value="femenino">Femenino</option>
-          </select>
-          <button className="user_button" onClick={nextQuestion}>
-            Siguiente
-          </button>
-        </>
-      ),
+      text: <div>¿Cuál es tu género? (masculino, femenino, x)</div>,
+      typeOfAnswer: "string",
     },
     {
       id_message: "peso_bot",
       sender: "bot",
-      text: "¿Cuánto pesas en kilogramos?",
-    },
-    {
-      id_message: "peso_user",
-      sender: "user",
-      text: (
-        <>
-          <input
-            name="weight"
-            onChange={handleChange}
-            type="number"
-            min={20}
-            max={250}
-            placeholder="Ingresa aquí tu peso (kg)"
-          />
-          <button className="user_button" onClick={nextQuestion}>
-            Siguiente
-          </button>
-        </>
-      ),
+      text: <div>¿Cuánto pesas en kilogramos?</div>,
+      typeOfAnswer: "number",
     },
     {
       id_message: "altura_bot",
       sender: "bot",
-      text: "¿Cuánto mides en metros?",
-    },
-    {
-      id_message: "altura_user",
-      sender: "user",
-      text: (
-        <>
-          <input
-            name="height"
-            onChange={handleChange}
-            type="number"
-            min={0.6}
-            max={2.6}
-            placeholder="Ingresa aquí tu altura (metros)"
-          />
-          <button className="user_button" onClick={nextQuestion}>
-            Siguiente
-          </button>
-        </>
-      ),
+      text: <div>¿Cuánto mides en centimetros?</div>,
+      typeOfAnswer: "number",
     },
     {
       id_message: "dias_bot",
       sender: "bot",
-      text: "¿Cuántos días tienes pensado entrenar? ¿Cuánto tiempo quieres dedicar a cada sesión de entrenamiento?",
+      text: <div>¿Cuántos días tienes pensado entrenar?</div>,
+      typeOfAnswer: "number",
     },
     {
-      id_message: "dias_user",
-      sender: "user",
+      id_message: "horas_bot",
+      sender: "bot",
       text: (
-        <>
-          <input
-            name="daysOfTraining"
-            onChange={handleChange}
-            type="number"
-            min={1}
-            max={7}
-            placeholder="Ingresa aquí los días a entrenar (1-7)"
-          />
-          <select name="trainingTime" onChange={handleChange} defaultValue="">
-            <option value="" disabled>
-              Ingrese el tiempo de entrenamiento
-            </option>
-            <option value="1/2h-1h">30min a 1h</option>
-            <option value="1h-3/2h">1h a 1h/30min</option>
-            <option value="3/2h-2h">1h/30min a 2h</option>
-            <option value="+2h">Más de 2h</option>
-          </select>
-          <button className="user_button" onClick={nextQuestion}>
-            Siguiente
-          </button>
-        </>
+        <div>
+          ¿Cuánto tiempo quieres dedicar a cada sesión de entrenamiento?
+        </div>
       ),
+      typeOfAnswer: "select_hours",
     },
     {
       id_message: "obj_bot",
       sender: "bot",
-      text: "¿Cuál es tu objetivo corporal? ¿Tienes alguna zona específica que mejorar?",
-    },
-    {
-      id_message: "obj_user",
-      sender: "user",
       text: (
-        <>
-          <select name="goal" onChange={handleChange} defaultValue="">
-            <option value="" disabled>
-              Seleccione un objetivo corporal
-            </option>
-            <option value="perder peso">Perder peso</option>
-            <option value="ganar músculo">Ganar músculo</option>
-            <option value="aumentar resistencia">Aumentar resistencia</option>
-            <option value="mantenerse">Mantenerse</option>
-          </select>
-          <select name="bodyPart" onChange={handleChange} defaultValue="">
-            <option value="" disabled>
-              Seleccione una parte del cuerpo
-            </option>
-            <option value="ninguna parte en especifico">
-              Ninguna parte en especifico
-            </option>
-            <option value="pecho">Pecho</option>
-            <option value="espalda">Espalda</option>
-            <option value="brazos">Brazos</option>
-            <option value="piernas">Piernas</option>
-            <option value="abdomen">Abdomen</option>
-            <option value="tren_superior">Tren superior</option>
-          </select>
-          <button className="user_button" onClick={nextQuestion}>
-            Siguiente
-          </button>
-        </>
+        <div>
+          ¿Cuál es tu objetivo corporal? ¿Tienes alguna zona específica que
+          mejorar?
+        </div>
       ),
+      typeOfAnswer: "string",
     },
     {
       id_message: "create",
       sender: "bot",
       text: "¡Ok, con esta información estoy listo para crear tu plan!",
-    },
-    {
-      id_message: "create_button",
-      sender: "bot",
-      text: (
-        <button
-          className="user_button"
-          onClick={async () => {
-            setFinishedQuestions(true);
-            // envia la info al servidor
-            handleCreate();
-          }}
-        >
-          Crear plan
-        </button>
-      ),
+      typeOfAnswer: "create_plan",
     },
   ];
 
   useEffect(() => {
     async function sendMessages() {
-      // muestra la introduccion a las preguntas solo una ves
-      if (shouldContinue == true && shownIntro == false) {
-        addNewMessage([
-          {
-            id_message: "intro",
-            sender: "bot",
-            text: "Ok, para poder crear un plan personalizado para ti necesitaré que respondas las siguientes preguntas:",
-          },
-        ]);
-        setShownIntro(true);
-      }
       await sleep(1000);
       // hace las preguntas necesarias para conseguir la informacion
       if (
         shouldContinue == true &&
-        shownIntro == true &&
         index < messagesToSend.length &&
         waitingForAnswer == false
       ) {
         addNewMessage([messagesToSend[index]]);
+        setIndex(index + 1);
         await sleep(500);
-        addNewMessage([messagesToSend[index + 1]]);
-        setIndex(index + 2);
-        setwaitingForAnswer(true);
+        setWaitingForAnswer(true);
       }
       sleep(1000);
       // recolecta la info y hace el plan
@@ -337,17 +167,8 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
             {
               id_message: "errores",
               sender: "bot",
-              text: (
-                <div>
-                  <span>La info ingresada tiene los siguientes errores: </span>{" "}
-                  <br />
-                  <span className="errors">{errorInfo}</span> <br />
-                  <span>
-                    Porfavor ingresa la info de manera correcta y presiona
-                    "Crear plan"
-                  </span>
-                </div>
-              ),
+              text: <span className="errors">{errorInfo}</span>,
+              typeOfAnswer: null,
             },
           ]);
         }
@@ -357,13 +178,26 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
   }, [
     shouldContinue,
     waitingForAnswer,
-    shownIntro,
     finishedQuestions,
     errorInfo,
   ]);
 
   return (
-    <ConversationContext.Provider value={{ messages, setMessages }}>
+    <ConversationContext.Provider
+      value={{
+        messages,
+        setMessages,
+        waitingForAnswer,
+        addNewMessage,
+        deleteMessages,
+        nextQuestion,
+        setValues,
+        setFinishedQuestions,
+        handleCreate,
+        setContinue,
+        shouldContinue
+      }}
+    >
       {children}
     </ConversationContext.Provider>
   );
@@ -372,7 +206,9 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
 export const useConversation = (): ConversationContextType => {
   const context = useContext(ConversationContext);
   if (!context) {
-    throw new Error("useConversation must be used within a ConversationProvider");
+    throw new Error(
+      "useConversation must be used within a ConversationProvider"
+    );
   }
   return context;
 };

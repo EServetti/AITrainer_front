@@ -1,6 +1,25 @@
+.main_home {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Componente intro */
+.intro_home {
+  height: calc(100vh - 80px);
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Componente chat */
 .chat {
   min-height: calc(100vh - 80px);
-  width: 70%;
+  width: 65%;
   min-width: 700px;
   display: flex;
   flex-direction: column;
@@ -11,8 +30,57 @@
   padding-top: 40px;
   box-shadow: inset 0px 0px 20px 0px black;
   border-radius: 15px;
-  margin-left: auto;
-  margin-right: auto;
+}
+
+.writing_bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: 10px;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+.writing_bar input {
+  height: 50px;
+  width: 80%;
+  padding: 5px;
+  border: none;
+  background-color: transparent;
+}
+
+.writing_bar select {
+  height: 50px;
+  width: 80%;
+  border: none;
+  color: #0078d7;
+}
+
+.send_info_button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.send_info_disabled {
+  opacity: 0.5;
+  background-color: transparent;
+  border: none;
+}
+
+.writing_bar button img {
+  width: 32px;
+}
+
+.send_info_button img:hover {
+  opacity: 0.8;
+}
+
+input::placeholder {
+  color: #0078d7;
 }
 
 .message {
