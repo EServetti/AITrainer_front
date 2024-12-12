@@ -8,7 +8,6 @@ import {
 } from "react";
 import { Message } from "../types";
 import createPlan from "../services/createPlan";
-import ConfirmComponent from "../components/messagesComponent";
 import { ConversationContextType, Info } from "../types";
 
 const ConversationContext = createContext<ConversationContextType | undefined>(
@@ -25,18 +24,12 @@ export function sleep(ms: number) {
 
 export function ConversationProvider({ children }: ConversationProviderProps) {
   const [shouldContinue, setContinue] = useState<boolean>(false);
-  const [shownIntro, setShownIntro] = useState(false);
+  // const [shownIntro, setShownIntro] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
-      id_message: "bienvenida",
+      id_message: "intro",
       sender: "bot",
-      text: "Hola, bienvenido a AITrainer, seré tu entrenador personal, ¿estás listo para comenzar a crear tu nueva rutina de entrenamiento?",
-      typeOfAnswer: null,
-    },
-    {
-      id_message: "continuar",
-      sender: "bot",
-      text: <ConfirmComponent setContinue={setContinue} />,
+      text: "Ok, para poder crear un plan personalizado para ti necesitaré que respondas las siguientes preguntas:",
       typeOfAnswer: null,
     },
   ]);
@@ -50,7 +43,7 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
     sex: "",
   });
 
-  const [waitingForAnswer, setwaitingForAnswer] = useState(false);
+  const [waitingForAnswer, setWaitingForAnswer] = useState(false);
   const [index, setIndex] = useState(0);
 
   const [finishedQuestions, setFinishedQuestions] = useState(false);
@@ -59,7 +52,7 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
   // funcion para dejar de esperar por la respuesta del usuario
   async function nextQuestion() {
     await sleep(1000);
-    setwaitingForAnswer(false);
+    setWaitingForAnswer(false);
   }
 
   // funcion para añadir nuevos mensajes
@@ -78,7 +71,6 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
   // Actualiza la referencia siempre que los valores cambian
   useEffect(() => {
     valuesRef.current = values;
-    console.log(values);
   }, [values]);
 
   // crea el plan con la info del user
@@ -148,36 +140,23 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
       id_message: "create",
       sender: "bot",
       text: "¡Ok, con esta información estoy listo para crear tu plan!",
-      typeOfAnswer: null,
+      typeOfAnswer: "create_plan",
     },
   ];
 
   useEffect(() => {
     async function sendMessages() {
-      // muestra la introduccion a las preguntas solo una ves
-      if (shouldContinue == true && shownIntro == false) {
-        addNewMessage([
-          {
-            id_message: "intro",
-            sender: "bot",
-            text: "Ok, para poder crear un plan personalizado para ti necesitaré que respondas las siguientes preguntas:",
-            typeOfAnswer: null,
-          },
-        ]);
-        setShownIntro(true);
-      }
       await sleep(1000);
       // hace las preguntas necesarias para conseguir la informacion
       if (
         shouldContinue == true &&
-        shownIntro == true &&
         index < messagesToSend.length &&
         waitingForAnswer == false
       ) {
         addNewMessage([messagesToSend[index]]);
         setIndex(index + 1);
         await sleep(500);
-        setwaitingForAnswer(true);
+        setWaitingForAnswer(true);
       }
       sleep(1000);
       // recolecta la info y hace el plan
@@ -188,17 +167,7 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
             {
               id_message: "errores",
               sender: "bot",
-              text: (
-                <div>
-                  <span>La info ingresada tiene los siguientes errores: </span>{" "}
-                  <br />
-                  <span className="errors">{errorInfo}</span> <br />
-                  <span>
-                    Porfavor ingresa la info de manera correcta y presiona
-                    "Crear plan"
-                  </span>
-                </div>
-              ),
+              text: <span className="errors">{errorInfo}</span>,
               typeOfAnswer: null,
             },
           ]);
@@ -209,7 +178,6 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
   }, [
     shouldContinue,
     waitingForAnswer,
-    shownIntro,
     finishedQuestions,
     errorInfo,
   ]);
@@ -224,6 +192,10 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
         deleteMessages,
         nextQuestion,
         setValues,
+        setFinishedQuestions,
+        handleCreate,
+        setContinue,
+        shouldContinue
       }}
     >
       {children}

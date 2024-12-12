@@ -17,7 +17,7 @@ function validateInfo(
   setValueInp: React.Dispatch<React.SetStateAction<any>>,
   addNewMessage: (message: Message[]) => any,
   nextQuestion: () => any,
-  setValues: React.Dispatch<React.SetStateAction<any>>
+  setValues: React.Dispatch<React.SetStateAction<any>>,
 ) {
   switch (id_question) {
     case "años_bot":

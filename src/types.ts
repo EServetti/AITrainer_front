@@ -2,7 +2,7 @@ export interface Message {
     id_message: string;
     sender: "user" | "bot";
     text: string | JSX.Element;
-    typeOfAnswer: "string" | "number" | "select_hours" | null
+    typeOfAnswer: "string" | "number" | "select_hours" | "create_plan" | null
 }
 export interface ConversationContextType {
     messages: any; 
@@ -11,7 +11,11 @@ export interface ConversationContextType {
     addNewMessage: (message: Message[]) => any,
     deleteMessages: (id: string) => any,
     nextQuestion: () => any,
-    setValues : React.Dispatch<React.SetStateAction<any>>
+    setValues : React.Dispatch<React.SetStateAction<any>>,
+    setFinishedQuestions: React.Dispatch<React.SetStateAction<any>>,
+    handleCreate : () => any,
+    setContinue : React.Dispatch<React.SetStateAction<any>>,
+    shouldContinue : boolean
 }
 export interface Info {
     age: number;

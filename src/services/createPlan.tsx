@@ -30,7 +30,7 @@ async function createPlan(
       const response = res.data;
       if (response.statusCode == 400) {
         // eliminar el mensaje "cargando"
-          deleteMessages("cargando");
+        deleteMessages("cargando");
         // agregar errores
         setErrors(response.message);
       } else if (response.statusCode == 200) {

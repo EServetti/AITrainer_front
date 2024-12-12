@@ -5,6 +5,18 @@
   align-items: flex-start;
 }
 
+/* Componente intro */
+.intro_home {
+  height: calc(100vh - 80px);
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Componente chat */
 .chat {
   min-height: calc(100vh - 80px);
   width: 65%;
@@ -18,8 +30,6 @@
   padding-top: 40px;
   box-shadow: inset 0px 0px 20px 0px black;
   border-radius: 15px;
-  /* margin-left: auto;
-  margin-right: auto; */
 }
 
 .writing_bar {
@@ -194,4 +204,3 @@ input::placeholder {
   height: 23;
   width: 23px;
 }
-
