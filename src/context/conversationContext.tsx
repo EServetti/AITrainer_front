@@ -41,6 +41,8 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
     goal: "",
     trainingTime: "",
     sex: "",
+    extra: "",
+    bodyType: ""
   });
 
   const [waitingForAnswer, setWaitingForAnswer] = useState(false);
@@ -110,6 +112,12 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
       typeOfAnswer: "number",
     },
     {
+      id_message: "bodyType_bot",
+      sender: "bot",
+      text: <div>¿Cuál es tu tipo de cuerpo?</div>,
+      typeOfAnswer: "select_bodyType",
+    },
+    {
       id_message: "dias_bot",
       sender: "bot",
       text: <div>¿Cuántos días tienes pensado entrenar?</div>,
@@ -132,6 +140,16 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
         <div>
           ¿Cuál es tu objetivo corporal? ¿Tienes alguna zona específica que
           mejorar?
+        </div>
+      ),
+      typeOfAnswer: "string",
+    },
+    {
+      id_message: "extra_bot",
+      sender: "bot",
+      text: (
+        <div>
+          ¿Hay algun info extra que pueda usar para crear un mejor plan?
         </div>
       ),
       typeOfAnswer: "string",

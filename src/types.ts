@@ -2,7 +2,7 @@ export interface Message {
     id_message: string;
     sender: "user" | "bot";
     text: string | JSX.Element;
-    typeOfAnswer: "string" | "number" | "select_hours" | "create_plan" | null
+    typeOfAnswer: "string" | "number" | "select_hours" | "select_bodyType" | "create_plan" | null
 }
 export interface ConversationContextType {
     messages: any; 
@@ -25,6 +25,8 @@ export interface Info {
     goal: string;
     trainingTime: string;
     sex: string;
+    extra: string,
+    bodyType: string
 }
 export interface Exercice {
     name: string;

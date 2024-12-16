@@ -22,6 +22,10 @@ nav .about {
     margin-right: 20%;
 }
 
+nav .home {
+    white-space: nowrap;
+}
+
 .logo {
     margin-right: auto;
 }
