@@ -54,7 +54,7 @@ function Home() {
     setValueInp(e.target.value);
   }
 
-  function handleClick(id_message: string):any {
+  function handleClick(id_message: string): any {
     validateInfo(
       id_message,
       valueInp,
@@ -65,7 +65,10 @@ function Home() {
     );
   }
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement | HTMLSelectElement>, id_message: string) {
+  function handleKeyDown(
+    e: React.KeyboardEvent<HTMLInputElement | HTMLSelectElement>,
+    id_message: string
+  ) {
     if (e.key === "Enter") {
       validateInfo(
         id_message,
@@ -76,7 +79,7 @@ function Home() {
         setValues
       );
     }
-  };
+  }
 
   return (
     <div className="main_home">
@@ -117,7 +120,9 @@ function Home() {
                 name="trainingTime"
                 defaultValue=""
                 onChange={handleChange}
-                onKeyDown={(e)=>handleKeyDown(e, messages[messages.length - 1].id_message)}
+                onKeyDown={(e) =>
+                  handleKeyDown(e, messages[messages.length - 1].id_message)
+                }
               >
                 <option value="" disabled>
                   Ingrese el tiempo de entrenamiento
@@ -126,6 +131,28 @@ function Home() {
                 <option value="1h-3/2h">1h a 1h/30min</option>
                 <option value="3/2h-2h">1h/30min a 2h</option>
                 <option value="+2h">Más de 2h</option>
+              </select>
+            ) : (messages[messages.length - 1].typeOfAnswer &&
+                messages[messages.length - 1].typeOfAnswer ===
+                  "select_bodyType") ||
+              (messages[messages.length - 2] &&
+                messages[messages.length - 2].typeOfAnswer &&
+                messages[messages.length - 2].typeOfAnswer ===
+                  "select_bodyType") ? (
+              <select
+                name="bodyType"
+                defaultValue=""
+                onChange={handleChange}
+                onKeyDown={(e) =>
+                  handleKeyDown(e, messages[messages.length - 1].id_message)
+                }
+              >
+                <option value="" disabled>
+                  Ingresa tu tipo de cuerpo
+                </option>
+                <option value="mesomorfo">Mesomorfo</option>
+                <option value="ectomorfo">Ectomorfo</option>
+                <option value="endomorfo">Endomorfo</option>
               </select>
             ) : (
               <input
@@ -137,7 +164,9 @@ function Home() {
                     ? messages[messages.length - 1].typeOfAnswer
                     : "string"
                 }
-                onKeyDown={(e)=>handleKeyDown(e, messages[messages.length - 1].id_message)}
+                onKeyDown={(e) =>
+                  handleKeyDown(e, messages[messages.length - 1].id_message)
+                }
                 placeholder="Ingrese aqui la información solicitada"
                 maxLength={150}
                 disabled={
@@ -166,7 +195,9 @@ function Home() {
                 className={
                   waitingForAnswer ? "send_info_button" : "send_info_disabled"
                 }
-                onClick={()=>handleClick(messages[messages.length - 1].id_message)}
+                onClick={() =>
+                  handleClick(messages[messages.length - 1].id_message)
+                }
               >
                 <img src={arrow} alt="send" />
               </button>
