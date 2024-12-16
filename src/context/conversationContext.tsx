@@ -42,7 +42,8 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
     trainingTime: "",
     sex: "",
     extra: "",
-    bodyType: ""
+    bodyType: "",
+    dificulty: "",
   });
 
   const [waitingForAnswer, setWaitingForAnswer] = useState(false);
@@ -112,6 +113,12 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
       typeOfAnswer: "number",
     },
     {
+      id_message: "dificultad_bot",
+      sender: "bot",
+      text: <div>¿Que dificultad te gustaria para tu plan (fácil, medio, difícil)?</div>,
+      typeOfAnswer: "string"
+    },
+    {
       id_message: "bodyType_bot",
       sender: "bot",
       text: <div>¿Cuál es tu tipo de cuerpo?</div>,
@@ -149,7 +156,7 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
       sender: "bot",
       text: (
         <div>
-          ¿Hay algun info extra que pueda usar para crear un mejor plan?
+          ¿Hay alguna información extra que pueda usar para crear un mejor plan?
         </div>
       ),
       typeOfAnswer: "string",
