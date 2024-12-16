@@ -19,10 +19,9 @@ function validateInfo(
   nextQuestion: () => any,
   setValues: React.Dispatch<React.SetStateAction<any>>
 ) {
-  
   switch (id_question) {
     case "años_bot":
-      const age = Number(value)
+      const age = Number(value);
       if (age <= 14 || age >= 70) {
         addNewMessage([
           {
@@ -65,7 +64,7 @@ function validateInfo(
             {
               id_message: "sexo_user",
               sender: "user",
-              text: `${value}`,
+              text: `${newValue}`,
               typeOfAnswer: null,
             },
           ]);
@@ -92,7 +91,7 @@ function validateInfo(
       }
       break;
     case "peso_bot":
-      const weight = Number(value)
+      const weight = Number(value);
       if (weight < 20 || weight > 250) {
         addNewMessage([
           {
@@ -124,7 +123,7 @@ function validateInfo(
       }
       break;
     case "altura_bot":
-      const height = Number(value)
+      const height = Number(value);
       if (height < 60 || height > 260) {
         addNewMessage([
           {
@@ -153,6 +152,44 @@ function validateInfo(
         }));
         setValueInp("");
         nextQuestion();
+      }
+      break;
+    case "dificultad_bot":
+      if (typeof value === "string") {
+        const newValue = normalizeString(value);
+        if (
+          newValue === "facil" ||
+          newValue === "medio" ||
+          newValue === "dificil"
+        ) {
+          addNewMessage([
+            {
+              id_message: "dificultad_user",
+              sender: "user",
+              text: `${newValue}`,
+              typeOfAnswer: null,
+            },
+          ]);
+          setValues((prevState: any) => ({
+            ...prevState,
+            dificulty: value,
+          }));
+          setValueInp("");
+          nextQuestion();
+        } else {
+          addNewMessage([
+            {
+              id_message: "errors",
+              sender: "bot",
+              text: (
+                <div className="errors">
+                  Por favor elige entre "fácil", "medio", "difícil"
+                </div>
+              ),
+              typeOfAnswer: null,
+            },
+          ]);
+        }
       }
       break;
     case "bodyType_bot":
@@ -187,7 +224,7 @@ function validateInfo(
       }
       break;
     case "dias_bot":
-      const days = Number(value)
+      const days = Number(value);
       if (days < 1 || days > 7) {
         addNewMessage([
           {
@@ -282,32 +319,29 @@ function validateInfo(
       if (value === "") {
         addNewMessage([
           {
-            id_message: "errors",
-            sender: "bot",
-            text: (
-              <div className="errors">
-                Por favor ingresa al menos un objetivo corporal.
-              </div>
-            ),
-            typeOfAnswer: null,
-          },
-        ]);
-      } else {
-        addNewMessage([
-          {
-            id_message: "horas_user",
+            id_message: "extra_user",
             sender: "user",
-            text: `${value}`,
+            text: `Ninguna info extra`,
             typeOfAnswer: null,
           },
         ]);
-        setValues((prevState: any) => ({
-          ...prevState,
-          extra: value,
-        }));
-        setValueInp("");
         nextQuestion();
+        break;
       }
+      addNewMessage([
+        {
+          id_message: "extra_user",
+          sender: "user",
+          text: `${value}`,
+          typeOfAnswer: null,
+        },
+      ]);
+      setValues((prevState: any) => ({
+        ...prevState,
+        extra: value,
+      }));
+      setValueInp("");
+      nextQuestion();
       break;
   }
 }

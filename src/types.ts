@@ -26,7 +26,8 @@ export interface Info {
     trainingTime: string;
     sex: string;
     extra: string,
-    bodyType: string
+    bodyType: string,
+    dificulty: string
 }
 export interface Exercice {
     name: string;

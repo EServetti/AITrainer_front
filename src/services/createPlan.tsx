@@ -17,7 +17,7 @@ async function createPlan(
       sender: "bot",
       text: (
         <div className="loadingContainer">
-          <span>Cargando</span>
+          <span>Creando</span>
           <div className="spinner"></div>
         </div>
       ),
