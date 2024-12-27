@@ -38,3 +38,12 @@ export interface Plan {
     day: string;
     exercises: Exercice[];
 }
+export interface registerInfo {
+    first_name: string | null;
+    last_name: string | null;
+    sex: "male" | "female" | "x" | null;
+    email: string | null;
+    date_of_birth: string | null;
+    password: string | null;
+    password_2: string | null
+}

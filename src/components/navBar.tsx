@@ -7,6 +7,7 @@ function NavBar() {
         <nav>
             <span className="logo"><img src={logo} alt="AITrainer" /></span>
             <span className="home"><Link to="/">Nuevo plan</Link></span>
+            <span><Link to="/register">Registrarse</Link></span>
             <span className="about"><Link to="/about">Acerca de</Link></span>
         </nav>
     )
