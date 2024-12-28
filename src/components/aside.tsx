@@ -1,18 +1,14 @@
-import "../style/aside.css"
+import "../style/aside.css";
+import { Link } from "react-router-dom";
 
 function Aside() {
-    return(
-        <aside>
-            Próximamente:
-            <ul>
-                <li>Sistema de cuentas para guardar planes.</li>
-                <li>Seguimiento de pesos.</li>
-                <li>Seguimiento corporal.</li>
-                <li>Preguntas más específicas sobre ejercicios a AITrainer.</li>
-                <li>Si tienes alguna sugerencia puedes encontrar mi contacto en "Acerca de"</li>
-            </ul>
-        </aside>
-    )
+  return (
+    <aside>
+      <span>
+        <Link to="/about">Acerca de</Link>
+      </span>
+    </aside>
+  );
 }
 
-export default Aside
+export default Aside;

@@ -6,13 +6,15 @@ function Password({
   showPassword,
   setShowPassword,
   first,
+  className
 }: {
-  showPassword: boolean;
-  setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
-  first: boolean;
+  showPassword: boolean,
+  setShowPassword: React.Dispatch<React.SetStateAction<boolean>>,
+  first: boolean,
+  className: string
 }) {
   return (
-    <div className="password">
+    <div className={className}>
       <input
         className={first ? "first_pass" : "seccond_pass"}
         name={first ? "password" : "password_2"}

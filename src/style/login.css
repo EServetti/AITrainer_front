@@ -1,48 +1,12 @@
-.password {
-  width: 40%;
-  box-sizing: border-box;
-  display: flex;
-}
-
-
-.first_pass {
-    border: 1px solid #0078d7;
-    border-right: none;
-    border-radius: 5px 0 0 5px;
-}
-
-.seccond_pass {
-    border: 1px solid #0078d7;
-    border-radius: 5px;
-}
-
-
-.password input {
-  width: 100%;
-  padding: 5px;
-}
-
-.password img {
-  width: 40%;
-}
-
-.password button {
-  background-color: transparent;
-  border: 1px solid #0078d7;
-  border-radius: 0 5px 5px 0;
-  border-left: none;
-}
-
-.main_register {
+.main_login {
   min-height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 20px;
 }
 
-.main_register section {
+.main_login section {
   flex: 1;
   min-height: calc(100vh - 80px);
   display: flex;
@@ -51,14 +15,18 @@
   box-sizing: border-box;
 }
 
-.should_register {
-  border-right: 1px solid #0078d7;
-  padding-right: 30px;
-  padding-top: 30px;
+.login_image {
+  box-sizing: border-box;
 }
 
-.register_form {
-  width: 80%;
+.login_image img {
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+}
+
+.login_form {
+  width: 70%;
   min-width: 300px;
   height: 80vh;
   display: flex;
@@ -68,44 +36,46 @@
   background-color: white;
   padding: 20px;
   box-sizing: border-box;
-  gap: 10px;
+  gap: 20px;
   border: none;
   border-radius: 15px;
   box-shadow: 0 0 10px 0 black;
 }
 
-.register_form span {
+.email_login {
   width: 100%;
+  box-sizing: border-box;
+  color: #0078d7;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  border: 1px solid #0078d7;
+}
+
+.password_login {
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
-  justify-content:center;
-  gap: 10px;
-  box-sizing: border-box;
 }
 
-.email {
-  width: calc(80% + 10px);
-  text-align: center;
-  box-sizing: border-box;
-  color: #0078d7;
+.password_login input {
+  width: 100%;
   padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #0078d7;
 }
 
-.first_name,
-.last_name,
-.sex,
-.date_of_birth {
+.password_login img {
   width: 40%;
-  box-sizing: border-box;
-  color: #0078d7;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #0078d7;
 }
 
-.send_register {
-    width: calc(80% + 10px);
+.password_login button {
+  background-color: transparent;
+  border: 1px solid #0078d7;
+  border-radius: 0 5px 5px 0;
+  border-left: none;
+}
+
+.send_login {
+    width: 100%;
     cursor: pointer;
     color: #0078d7;
     border: 1px solid #0078d7;
@@ -113,8 +83,8 @@
     border-radius: 5px;
 }
 
-.continue_google {
-    width: calc(80% + 10px);
+.continue_google_login {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -125,7 +95,7 @@
     cursor: pointer;
 }
 
-.continue_google img {
+.continue_google_login img {
     width: 5%;
     min-width: 25px;
 }

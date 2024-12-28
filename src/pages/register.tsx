@@ -93,11 +93,13 @@ function Register() {
               showPassword={showPassword}
               setShowPassword={setShowPassword}
               first={true}
+              className="password"
             />
             <Password
               showPassword={showPassword}
               setShowPassword={setShowPassword}
               first={false}
+              className="password"
             />
           </span>
           {errors && <span className="errors">{errors}</span>}
