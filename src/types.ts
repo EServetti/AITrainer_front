@@ -47,3 +47,12 @@ export interface registerInfo {
     password: string | null;
     password_2: string | null
 }
+export interface User {
+    id: string;
+    first_name: string;
+    last_name: string;
+    sex: string;
+    date_of_birth: string;
+    email: string;
+    role: number
+}

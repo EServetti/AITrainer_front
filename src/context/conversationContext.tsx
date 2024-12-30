@@ -228,12 +228,8 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
   );
 }
 
-export const useConversation = (): ConversationContextType => {
-  const context = useContext(ConversationContext);
-  if (!context) {
-    throw new Error(
-      "useConversation must be used within a ConversationProvider"
-    );
-  }
-  return context;
-};
+
+export function useConversation() {
+    const context = useContext(ConversationContext)
+    return context
+}

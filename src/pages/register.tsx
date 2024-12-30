@@ -1,12 +1,23 @@
 import "../style/register.css";
 import google from "../assets/google.png";
 import Password from "../components/passwordInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { path } from "../path";
 import { registerInfo } from "../types";
 import register from "../services/createAccount";
+import { useUser } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const context = useUser()
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if (!context?.loading && context?.user) {
+      navigate("/")
+    }
+  },[context?.loading, context?.user])
+
   const [values, setValues ] = useState<registerInfo>({
     first_name: null,
     last_name: null,

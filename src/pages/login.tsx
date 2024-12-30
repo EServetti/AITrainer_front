@@ -6,8 +6,19 @@ import Password from "../components/passwordInput";
 import { path } from "../path";
 import login from "../services/loginAccount";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/userContext";
 
 function Login() {
+  const context = useUser()
+
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if (!context?.loading && context?.user) {
+      navigate("/")
+    }
+  },[context?.loading, context?.user])
+
   const [photoPadding, setPhotoPadding] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState("");
@@ -15,8 +26,6 @@ function Login() {
     email: null,
     password: null
   })
-
-  const navigate = useNavigate()
 
   useEffect(() => {
     function adjustWindow() {
@@ -51,7 +60,7 @@ function Login() {
 
   function handleClick(e: any) {
     e.preventDefault()
-    login(values.email,values.password,setErrors, navigate)
+    login(values.email,values.password,setErrors, navigate, context?.change, context?.setChange)
   }
 
   return (
