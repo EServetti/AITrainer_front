@@ -9,8 +9,7 @@ import { path } from "./path";
 
 function AppContent() {
   const context = useUser()
-  useEffect(() => {
-
+  useEffect(() => {    
     async function userData() {
       axios.post(`${path}/data`, undefined, { withCredentials: true }).then((res) => {
         const response = res.data;
