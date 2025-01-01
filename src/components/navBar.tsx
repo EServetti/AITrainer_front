@@ -1,4 +1,4 @@
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../style/navBar.css";
 import logo from "../assets/AITrainer.png";
 import { useUser } from "../context/userContext";
@@ -10,7 +10,7 @@ function NavBar() {
   const context = useUser();
   const photo = context?.user?.photo ? context?.user?.photo : userImage;
   const [showUserSection, setShowUserSection] = useState(false);
-  
+
   function handleClick() {
     setShowUserSection(!showUserSection);
   }
@@ -41,7 +41,7 @@ function NavBar() {
   }, [showUserSection]);
 
   function handleLogout() {
-    logout()
+    logout();
   }
 
   return (
@@ -75,7 +75,11 @@ function NavBar() {
         </nav>
       )}
       {context?.user && (
-        <span style={showUserSection ? { border: "1px solid #0078D7" } : {}} className="user_navBar" ref={refUserNavBar}>
+        <span
+          style={showUserSection ? { border: "1px solid #0078D7" } : {}}
+          className="user_navBar"
+          ref={refUserNavBar}
+        >
           <button onClick={handleClick}>
             <img src={photo} alt="user" />
           </button>
@@ -83,9 +87,15 @@ function NavBar() {
       )}
       {showUserSection && (
         <section ref={refUserSection} className="user_section">
-          <Link to="/account">Mi cuenta</Link>
-          <Link to="/plans">Mis planes</Link>
-          <button onClick={handleLogout}>Cerrar sesión</button>
+          <span>
+            <Link to="/account">Mi cuenta</Link>
+          </span>
+          <span style={{backgroundColor: "#F0F2F5"}}>
+            <Link to="/plans">Mis planes</Link>
+          </span>
+          <span>
+            <button onClick={handleLogout}>Cerrar sesión</button>
+          </span>
         </section>
       )}
     </>

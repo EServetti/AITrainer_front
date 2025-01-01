@@ -65,12 +65,9 @@ nav a {
     right: 10px;
     top: 5px;
     z-index: 5;
-    padding: 10px;
     border: 2px solid #0078D7;
     border-radius: 5px;
-    padding-top: 65px;
-    padding-left: 15px;
-    gap: 10px;
+    padding-top: 70px;
 }
 
 .user_section a {
@@ -89,4 +86,11 @@ nav a {
     border: none;
     cursor: pointer;
     padding: 0;
+}
+
+.user_section span {
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
 }
