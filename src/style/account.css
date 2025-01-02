@@ -12,6 +12,7 @@
     width: 40%;
     min-width: 600px;
     display: flex;
+    flex-direction: column;
     background-color: #0A192F;
     color: white;
     margin-left: auto;
@@ -52,4 +53,34 @@
 .tooltip {
     color: white;
     visibility: hidden;
+}
+
+.plan_data_form {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 35px 35px 35px 35px;
+    gap: 15px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.plan_data_form input, select, label {
+  box-sizing: border-box;
+  background-color: transparent;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
+.plan_data_form input::placeholder {
+    color: white;
+}
+
+.plan_data_form button {
+    border-radius: 5px;
+    border: 1px solid white;
+    cursor: pointer;
 }

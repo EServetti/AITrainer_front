@@ -55,5 +55,12 @@ export interface User {
     date_of_birth: string;
     email: string;
     role: number;
-    photo: string
+    photo: string;
+    planData: {
+        weight: number,
+        height: number;
+        bodyType: "mesomorfo" | "endomorfo" | "ectomorfo",
+        goal: string,
+        difficulty: "dificil" | "facil" | "medio"       
+    }
 }
