@@ -48,7 +48,7 @@ export interface registerInfo {
     password_2: string | null
 }
 export interface User {
-    id: string;
+    id: number;
     first_name: string;
     last_name: string;
     sex: string;
@@ -63,4 +63,12 @@ export interface User {
         goal: string,
         difficulty: "dificil" | "facil" | "medio"       
     }
+}
+
+export interface User_data {
+    weight: number | null,
+    height: number | null,
+    goal: string | null,
+    bodyType: "mesomorfo" | "endomorfo" | "ectomorfo" | null,
+    difficulty: "dificil" | "facil" | "medio" | null
 }

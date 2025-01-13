@@ -184,7 +184,6 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
         setWaitingForAnswer(true);
       }
       sleep(1000);
-      // recolecta la info y hace el plan
       if (finishedQuestions == true) {
         if (errorInfo) {
           deleteMessages("errores");
@@ -229,7 +228,7 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
 }
 
 
-export function useConversation() {
+export function useConversation(): ConversationContextType {
     const context = useContext(ConversationContext)
-    return context
+    return context as ConversationContextType
 }

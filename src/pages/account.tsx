@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useUser } from "../context/userContext";
 import "../style/account.css";
 import { useNavigate } from "react-router-dom";
+import { User_data } from "../types";
+import sendData from "../services/sendUserData";
 
 function Account() {
   const context = useUser();
@@ -16,6 +18,34 @@ function Account() {
 
   const [showForm, setShowForm] = useState(false);
   const [errors, setErrors] = useState("");
+
+  const [values, setValues] = useState<User_data>({
+    weight: null,
+    height: null,
+    goal: null,
+    bodyType: null,
+    difficulty: null,
+  });
+
+  function handleChange(e: any) {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setValues((oldValues) => ({
+      ...oldValues,
+      [name]: value,
+    }));
+  }
+
+  function handleClick(e: any) {
+    e.preventDefault();
+    const hasData = context?.user?.planData ? true : false;
+    sendData(context?.user?.id, values, hasData, setErrors);
+  }
+
+  const planData = context?.user?.planData;
+  const birthDate = new Date(
+    context?.user?.date_of_birth as string
+  ).toLocaleDateString();
 
   return (
     <div className="main_account">
@@ -34,7 +64,7 @@ function Account() {
         </span>
         {showForm ? (
           <>
-            <form className="plan_data_form">
+            <form className="plan_data_form" onChange={handleChange}>
               <label htmlFor="dateOfBirth">Fecha de nacimiento</label>
               <input
                 name="dateOfBirth"
@@ -62,12 +92,42 @@ function Account() {
                 <option value="medio">Medio</option>
                 <option value="dificil">Difícil</option>
               </select>
-              <button>Cargar</button>
+              <button onClick={handleClick}>Cargar</button>
+              {errors && <div className="errors">{errors}</div>}
             </form>
-            {errors && <div className="errors">{errors}</div>}
           </>
         ) : context?.user?.planData ? (
-          <form></form>
+          <section className="user_data">
+            <div>
+              <span>Fecha de nacimiento: </span>
+              <span>{birthDate}</span>
+              <span>Cuerpo: </span>
+              <span>{planData?.bodyType}</span>
+              <span>Altura: </span>
+              <span>{planData?.height}</span>
+              <span>Peso: </span>
+              <span>{planData?.weight}</span>
+              <span>Dificultad de entrenamiento: </span>
+              <span>{planData?.difficulty}</span>
+              <span>Objetivo: </span>
+              <span>{planData?.goal}</span>
+            </div>
+            <button
+              style={{
+                padding: "5px",
+                borderRadius: "5px",
+                border: "1px solid white",
+                backgroundColor: "#0A192F",
+                color: "white",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                setShowForm(true);
+              }}
+            >
+              Actualizar datos
+            </button>
+          </section>
         ) : (
           <span
             style={{

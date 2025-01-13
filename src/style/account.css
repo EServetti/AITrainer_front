@@ -75,6 +75,10 @@
   border: 1px solid white;
 }
 
+.plan_data_form option {
+    color:#0A192F ;
+}
+
 .plan_data_form input::placeholder {
     color: white;
 }
@@ -83,4 +87,29 @@
     border-radius: 5px;
     border: 1px solid white;
     cursor: pointer;
+}
+
+.user_data {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.user_data div {
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 50px 50px 50px 50px 50px;
+    column-gap: 30px;
+}
+
+.user_data span {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
 }
