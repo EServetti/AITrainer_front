@@ -18,6 +18,21 @@ function sendData(
   ) {
     setErrors("Porfavor ingrese todos los datos");
   } else if (!hasData) {
+    if (data.date_of_birth) {
+      axios
+        .put(
+          `${path}/bithDate`,
+          { id: user_id, date_of_birth: data.date_of_birth },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          setErrors("");
+          const response = res.data;
+          if (response.statusCode !== 200) {
+            setErrors(response.message);
+          }
+        });
+    }
     axios
       .post(
         `${path}/userdata`,
@@ -41,6 +56,7 @@ function sendData(
         }
       });
   } else if (
+    !data.date_of_birth &&
     !data?.weight &&
     !data.height &&
     !data.goal &&
@@ -50,6 +66,21 @@ function sendData(
     setErrors("Ingrese un valor a actualizar");
   } else {
     setErrors("");
+    if (data.date_of_birth) {
+      axios
+        .put(
+          `${path}/bithDate`,
+          { id: user_id, date_of_birth: data.date_of_birth },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          setErrors("");
+          const response = res.data;
+          if (response.statusCode !== 200) {
+            setErrors(response.message);
+          }
+        });
+    }
     const { weight, height, bodyType, goal, difficulty } = data;
     // crear un objeto con solo las propiedades que tienen valores válidos
     const filteredData = Object.fromEntries(
@@ -62,8 +93,7 @@ function sendData(
         difficulty,
       }).filter(([_, value]) => value !== null && value !== undefined)
     );
-    console.log(filteredData);
-    
+
     axios
       .put(`${path}/updateuserdata`, filteredData, { withCredentials: true })
       .then((res) => {

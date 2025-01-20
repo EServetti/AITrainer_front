@@ -6,30 +6,35 @@ import { UserProvider, useUser } from "./context/userContext";
 import { useEffect } from "react";
 import axios from "axios";
 import { path } from "./path";
+import { QuickCreationProvider } from "./context/quickCreationContext";
 
 function AppContent() {
-  const context = useUser()
-  useEffect(() => {    
+  const context = useUser();
+  useEffect(() => {
     async function userData() {
-      axios.post(`${path}/data`, undefined, { withCredentials: true }).then((res) => {
-        const response = res.data;
-        if (response.statusCode !== 200) {
-          context?.setLoading(false)
-        } else {
-          context?.setUser(response.message)
-          context?.setLoading(false)
-        }
-      });
+      axios
+        .post(`${path}/data`, undefined, { withCredentials: true })
+        .then((res) => {
+          const response = res.data;
+          if (response.statusCode !== 200) {
+            context?.setLoading(false);
+          } else {
+            context?.setUser(response.message);
+            context?.setLoading(false);
+          }
+        });
     }
-    userData()
+    userData();
   }, [context?.change]);
 
   return (
     <div className="main_container">
-        <ConversationProvider>
+      <ConversationProvider>
+        <QuickCreationProvider>
           <NavBar />
           <Main />
-        </ConversationProvider>
+        </QuickCreationProvider>
+      </ConversationProvider>
     </div>
   );
 }

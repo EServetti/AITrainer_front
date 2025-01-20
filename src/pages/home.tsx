@@ -8,24 +8,20 @@ import "../style/home.css";
 import { Message } from "../types";
 import validateInfo from "../services/validateInfo";
 import ConfirmComponent from "../components/messagesComponent";
+import { useUser } from "../context/userContext";
+import { useQuickCreation } from "../context/quickCreationContext";
 
 export function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function Home() {
-  const {
-    messages,
-    waitingForAnswer,
-    addNewMessage,
-    deleteMessages,
-    nextQuestion,
-    setValues,
-    setFinishedQuestions,
-    handleCreate,
-    setContinue,
-    shouldContinue,
-  } = useConversation();
+  const [conversationContext, setConversationContext] = useState("");
+
+  const normalConversation = useConversation();
+  const quickConversation = useQuickCreation();
+
+  const context = useUser();
 
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const chatRef = useRef<HTMLDivElement>(null);
@@ -42,7 +38,7 @@ function Home() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [normalConversation.messages, quickConversation.messages]);
 
   // Manejar el input
   const [valueInp, setValueInp] = useState("");
@@ -50,7 +46,11 @@ function Home() {
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) {
-    deleteMessages("errors");
+    if (conversationContext === "normal") {
+      normalConversation.deleteMessages("errors");
+    } else {
+      quickConversation.deleteMessages("errors");
+    }
     setValueInp(e.target.value);
   }
 
@@ -59,9 +59,15 @@ function Home() {
       id_message,
       valueInp,
       setValueInp,
-      addNewMessage,
-      nextQuestion,
-      setValues
+      conversationContext === "normal"
+        ? normalConversation.addNewMessage
+        : quickConversation.addNewMessage,
+      conversationContext === "normal"
+        ? normalConversation.nextQuestion
+        : quickConversation.nextQuestion,
+      conversationContext === "normal"
+        ? normalConversation.setValues
+        : quickConversation.setValues
     );
   }
 
@@ -74,16 +80,23 @@ function Home() {
         id_message,
         valueInp,
         setValueInp,
-        addNewMessage,
-        nextQuestion,
-        setValues
+        conversationContext === "normal"
+          ? normalConversation.addNewMessage
+          : quickConversation.addNewMessage,
+        conversationContext === "normal"
+          ? normalConversation.nextQuestion
+          : quickConversation.nextQuestion,
+        conversationContext === "normal"
+          ? normalConversation.setValues
+          : quickConversation.setValues
       );
     }
   }
 
   return (
     <div className="main_home">
-      {!shouldContinue ? (
+      {!normalConversation.shouldContinue &&
+      !quickConversation.shouldContinue ? (
         <div className="intro_home">
           <span className="message">
             <img src={botPhoto} alt="bot" />
@@ -92,37 +105,67 @@ function Home() {
           </span>
           <span className="message">
             <img src={botPhoto} alt="bot" />
-            <ConfirmComponent setContinue={setContinue} />
+            <ConfirmComponent setContext={setConversationContext} setContinue={normalConversation.setContinue} setQuickContinue={quickConversation.setContinue} />
           </span>
         </div>
       ) : (
         <div className="chat" ref={chatRef}>
-          {messages.map((message: Message, index: number) => (
-            <span className={`message message-${message.sender}`} key={index}>
-              <img
-                className="sender_img"
-                src={message.sender === "bot" ? dumbbell : userPhoto}
-                alt="sender_img"
-              />
-              {message.text}
-            </span>
-          ))}
+          {conversationContext === "normal"
+            ? normalConversation.messages.map(
+                (message: Message, index: number) => (
+                  <span
+                    className={`message message-${message.sender}`}
+                    key={index}
+                  >
+                    <img
+                      className="sender_img"
+                      src={
+                        message.sender === "bot"
+                          ? dumbbell
+                          : context?.user?.photo
+                          ? context?.user?.photo
+                          : userPhoto
+                      }
+                      alt="sender_img"
+                    />
+                    {message.text}
+                  </span>
+                )
+              )
+            : quickConversation.messages.map(
+                (message: Message, index: number) => (
+                  <span
+                    className={`message message-${message.sender}`}
+                    key={index}
+                  >
+                    <img
+                      className="sender_img"
+                      src={
+                        message.sender === "bot"
+                          ? dumbbell
+                          : context?.user?.photo
+                          ? context?.user?.photo
+                          : userPhoto
+                      }
+                      alt="sender_img"
+                    />
+                    {message.text}
+                  </span>
+                )
+              )}
           <div ref={endOfMessagesRef}></div>
           {/* barra de escritura */}
-
-          <label htmlFor="bar" className="writing_bar">
-            {(messages[messages.length - 1].typeOfAnswer &&
-              messages[messages.length - 1].typeOfAnswer === "select_hours") ||
-            (messages[messages.length - 2] &&
-              messages[messages.length - 2].typeOfAnswer &&
-              messages[messages.length - 2].typeOfAnswer === "select_hours") ? (
+          {conversationContext === "normal" ? (
+            <label htmlFor="bar" className="writing_bar">
+            {(normalConversation.messages[normalConversation.messages.length - 1].typeOfAnswer &&
+              normalConversation.messages[normalConversation.messages.length - 1].typeOfAnswer === "select_hours") ||
+            (normalConversation.messages[normalConversation.messages.length - 2] &&
+              normalConversation.messages[normalConversation.messages.length - 2].typeOfAnswer &&
+              normalConversation.messages[normalConversation.messages.length - 2].typeOfAnswer === "select_hours") ? (
               <select
                 name="trainingTime"
                 defaultValue=""
                 onChange={handleChange}
-                onKeyDown={(e) =>
-                  handleKeyDown(e, messages[messages.length - 1].id_message)
-                }
               >
                 <option value="" disabled>
                   Ingrese el tiempo de entrenamiento
@@ -132,21 +175,14 @@ function Home() {
                 <option value="3/2h-2h">1h/30min a 2h</option>
                 <option value="+2h">Más de 2h</option>
               </select>
-            ) : (messages[messages.length - 1].typeOfAnswer &&
-                messages[messages.length - 1].typeOfAnswer ===
+            ) : (normalConversation.messages[normalConversation.messages.length - 1].typeOfAnswer &&
+              normalConversation.messages[normalConversation.messages.length - 1].typeOfAnswer ===
                   "select_bodyType") ||
-              (messages[messages.length - 2] &&
-                messages[messages.length - 2].typeOfAnswer &&
-                messages[messages.length - 2].typeOfAnswer ===
+              (normalConversation.messages[normalConversation.messages.length - 2] &&
+                normalConversation.messages[normalConversation.messages.length - 2].typeOfAnswer &&
+                normalConversation.messages[normalConversation.messages.length - 2].typeOfAnswer ===
                   "select_bodyType") ? (
-              <select
-                name="bodyType"
-                defaultValue=""
-                onChange={handleChange}
-                onKeyDown={(e) =>
-                  handleKeyDown(e, messages[messages.length - 1].id_message)
-                }
-              >
+              <select name="bodyType" defaultValue="" onChange={handleChange}>
                 <option value="" disabled>
                   Ingresa tu tipo de cuerpo
                 </option>
@@ -160,49 +196,120 @@ function Home() {
                 value={valueInp}
                 onChange={handleChange}
                 type={
-                  messages[messages.length - 1].typeOfAnswer
-                    ? messages[messages.length - 1].typeOfAnswer
+                  normalConversation.messages[normalConversation.messages.length - 1].typeOfAnswer
+                    ? normalConversation.messages[normalConversation.messages.length - 1].typeOfAnswer
                     : "string"
                 }
                 onKeyDown={(e) =>
-                  handleKeyDown(e, messages[messages.length - 1].id_message)
+                  handleKeyDown(e, normalConversation.messages[normalConversation.messages.length - 1].id_message)
                 }
                 placeholder="Ingrese aqui la información solicitada"
                 maxLength={150}
                 disabled={
-                  !waitingForAnswer ||
-                  (messages[messages.length - 1].typeOfAnswer ===
+                  !normalConversation.waitingForAnswer ||
+                  (normalConversation.messages[normalConversation.messages.length - 1].typeOfAnswer ===
                     "create_plan" &&
                     true)
                 }
               />
             )}
 
-            {messages[messages.length - 1].typeOfAnswer === "create_plan" ? (
+            {normalConversation.messages[normalConversation.messages.length - 1].typeOfAnswer === "create_plan" ? (
               <button
                 className="user_button"
                 onClick={async () => {
-                  setFinishedQuestions(true);
+                  normalConversation.setFinishedQuestions(true);
                   // envia la info al servidor
-                  handleCreate();
+                  normalConversation.handleCreate();
                 }}
               >
                 Crear plan
               </button>
             ) : (
               <button
-                disabled={!waitingForAnswer}
+                disabled={!normalConversation.waitingForAnswer}
                 className={
-                  waitingForAnswer ? "send_info_button" : "send_info_disabled"
+                  normalConversation.waitingForAnswer ? "send_info_button" : "send_info_disabled"
                 }
                 onClick={() =>
-                  handleClick(messages[messages.length - 1].id_message)
+                  handleClick(normalConversation.messages[normalConversation.messages.length - 1].id_message)
                 }
               >
                 <img src={arrow} alt="send" />
               </button>
             )}
           </label>
+          ) : (
+            <label htmlFor="bar" className="writing_bar">
+            {(quickConversation.messages[quickConversation.messages.length - 1].typeOfAnswer &&
+              quickConversation.messages[quickConversation.messages.length - 1].typeOfAnswer === "select_hours") ||
+            (quickConversation.messages[quickConversation.messages.length - 2] &&
+              quickConversation.messages[quickConversation.messages.length - 2].typeOfAnswer &&
+              quickConversation.messages[quickConversation.messages.length - 2].typeOfAnswer === "select_hours") ? (
+              <select
+                name="trainingTime"
+                defaultValue=""
+                onChange={handleChange}
+              >
+                <option value="" disabled>
+                  Ingrese el tiempo de entrenamiento
+                </option>
+                <option value="1/2h-1h">30min a 1h</option>
+                <option value="1h-3/2h">1h a 1h/30min</option>
+                <option value="3/2h-2h">1h/30min a 2h</option>
+                <option value="+2h">Más de 2h</option>
+              </select>
+            ) : (
+              <input
+                id="bar"
+                value={valueInp}
+                onChange={handleChange}
+                type={
+                  quickConversation.messages[quickConversation.messages.length - 1].typeOfAnswer
+                    ? quickConversation.messages[quickConversation.messages.length - 1].typeOfAnswer
+                    : "string"
+                }
+                onKeyDown={(e) =>
+                  handleKeyDown(e, quickConversation.messages[quickConversation.messages.length - 1].id_message)
+                }
+                placeholder="Ingrese aqui la información solicitada"
+                maxLength={150}
+                disabled={
+                  !quickConversation.waitingForAnswer ||
+                  (quickConversation.messages[quickConversation.messages.length - 1].typeOfAnswer ===
+                    "create_plan" &&
+                    true)
+                }
+              />
+            )}
+
+            {quickConversation.messages[quickConversation.messages.length - 1].typeOfAnswer === "create_plan" ? (
+              <button
+                className="user_button"
+                onClick={async () => {
+                  quickConversation.setFinishedQuestions(true);
+                  // envia la info al servidor
+                  quickConversation.handleCreate();
+                }}
+              >
+                Crear plan
+              </button>
+            ) : (
+              <button
+                disabled={!quickConversation.waitingForAnswer}
+                className={
+                  quickConversation.waitingForAnswer ? "send_info_button" : "send_info_disabled"
+                }
+                onClick={() =>
+                  handleClick(quickConversation.messages[quickConversation.messages.length - 1].id_message)
+                }
+              >
+                <img src={arrow} alt="send" />
+              </button>
+            )}
+          </label>
+          )}
+          
         </div>
       )}
     </div>

@@ -27,7 +27,7 @@ export interface Info {
     sex: string;
     extra: string,
     bodyType: string,
-    dificulty: string
+    difficulty: string
 }
 export interface Exercice {
     name: string;
@@ -66,6 +66,7 @@ export interface User {
 }
 
 export interface User_data {
+    date_of_birth: number | null
     weight: number | null,
     height: number | null,
     goal: string | null,
