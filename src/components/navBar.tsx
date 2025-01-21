@@ -51,12 +51,12 @@ function NavBar() {
           <span className="logo" style={{ marginRight: "auto" }}>
             <img src={logo} alt="AITrainer" />
           </span>
-          <span className="home">
+          <span className="home" style={{ marginRight: "20%" }}>
             <Link to="/">Nuevo plan</Link>
           </span>
-          <span style={{ marginRight: "25%" }}>
+          {/* <span style={{ marginRight: "25%" }}>
             <Link to="/plans">Mis planes</Link>
-          </span>
+          </span> */}
         </nav>
       ) : (
         <nav>
@@ -90,9 +90,9 @@ function NavBar() {
           <span>
             <Link to="/account">Mi cuenta</Link>
           </span>
-          <span style={{backgroundColor: "#F0F2F5"}}>
+          {/* <span style={{backgroundColor: "#F0F2F5"}}>
             <Link to="/plans">Mis planes</Link>
-          </span>
+          </span> */}
           <span>
             <button onClick={handleLogout}>Cerrar sesión</button>
           </span>
