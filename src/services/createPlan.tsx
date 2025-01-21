@@ -2,14 +2,31 @@ import axios from "axios";
 import { sleep } from "../pages/home";
 import { path } from "../path";
 import returnPlan from "./returnPlan";
-import { Info, Message } from "../types";
+import { Message } from "../types";
 
 async function createPlan(
-  infoUser: Info,
+  typeOfCreation: string,
+  infoUser: any,
   setErrors: React.Dispatch<React.SetStateAction<string>>,
   addNewMessage: (messages: Message[]) => any,
   deleteMessages: (id: string) => any,
+  quickValues: any | null,
+
 ) {
+
+  if (typeOfCreation === "quick") {
+    infoUser = {
+      ...infoUser,
+      age: quickValues.age,
+      weight: quickValues.weight,
+      height: quickValues.height,
+      goal: quickValues.goal,
+      sex: quickValues.sex,
+      bodyType: quickValues.bodyType,
+      difficulty: quickValues.difficulty
+    }
+  }
+  
   // agrega mensaje "cargando"
   addNewMessage([
     {

@@ -1,0 +1,100 @@
+.main_account {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+
+.user_info {
+  height: 85vh;
+  width: 40%;
+  min-width: 600px;
+  display: flex;
+  flex-direction: column;
+  background-color: #0a192f;
+  color: white;
+  margin-left: auto;
+  margin-right: 20px;
+  border-radius: 15px;
+}
+
+.image_info {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
+  padding-bottom: 5px;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.image_info img {
+  width: 100px;
+  border-radius: 5px;
+  margin-left: auto;
+}
+
+
+.plan_data_form {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 35px 35px 35px 35px;
+  gap: 15px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.plan_data_form input,
+select,
+label {
+  box-sizing: border-box;
+  background-color: transparent;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
+.plan_data_form option {
+  color: #0a192f;
+}
+
+.plan_data_form input::placeholder {
+  color: white;
+}
+
+.plan_data_form button {
+  border-radius: 5px;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.user_data {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.user_data div {
+  width: 80%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50px 50px 50px 50px 50px;
+  column-gap: 30px;
+}
+
+.user_data span {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+

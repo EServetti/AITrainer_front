@@ -27,7 +27,7 @@ export interface Info {
     sex: string;
     extra: string,
     bodyType: string,
-    dificulty: string
+    difficulty: string
 }
 export interface Exercice {
     name: string;
@@ -37,4 +37,39 @@ export interface Exercice {
 export interface Plan {
     day: string;
     exercises: Exercice[];
+}
+export interface registerInfo {
+    first_name: string | null;
+    last_name: string | null;
+    sex: "male" | "female" | "x" | null;
+    email: string | null;
+    date_of_birth: string | null;
+    password: string | null;
+    password_2: string | null
+}
+export interface User {
+    id: number;
+    first_name: string;
+    last_name: string;
+    sex: string;
+    date_of_birth: string;
+    email: string;
+    role: number;
+    photo: string;
+    planData: {
+        weight: number,
+        height: number;
+        bodyType: "mesomorfo" | "endomorfo" | "ectomorfo",
+        goal: string,
+        difficulty: "dificil" | "facil" | "medio"       
+    }
+}
+
+export interface User_data {
+    date_of_birth: number | null
+    weight: number | null,
+    height: number | null,
+    goal: string | null,
+    bodyType: "mesomorfo" | "endomorfo" | "ectomorfo" | null,
+    difficulty: "dificil" | "facil" | "medio" | null
 }

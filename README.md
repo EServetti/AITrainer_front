@@ -1,6 +1,9 @@
 # AITrainer 
-En la siguiente lista dare creditos a creadores de imagenes que use en este proyecto las cuales fueron sacadas de flaticon:
-- Arrow: Izwar Muis
-- Copy: Gregor Cresnar
-- Crossfit (mancuerna): Mayor Icons
-- User: Freepik
+En la siguiente lista daré créditos a creadores de imágenes que usé en este proyecto, las cuales fueron sacadas de Flaticon y Unsplash:
+
+- **Arrow**: Izwar Muis  
+- **Copy**: Gregor Cresnar  
+- **Crossfit (mancuerna)**: Mayor Icons  
+- **User**: Freepik  
+- **Foto Mancuernas**: [Pixabay] (https://www.pexels.com/es-es/foto/lote-de-mancuernas-negras-260352/
+)

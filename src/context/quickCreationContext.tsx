@@ -8,13 +8,14 @@ import {
 } from "react";
 import { Message } from "../types";
 import createPlan from "../services/createPlan";
-import { ConversationContextType, Info } from "../types";
+import { ConversationContextType } from "../types";
+import { useUser } from "./userContext";
 
-const ConversationContext = createContext<ConversationContextType | undefined>(
+const QuickCreationContext = createContext<ConversationContextType | undefined>(
   undefined
 );
 
-interface ConversationProviderProps {
+interface QuickCreationProviderProps {
   children: ReactNode;
 }
 
@@ -22,28 +23,26 @@ export function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export function ConversationProvider({ children }: ConversationProviderProps) {
+export function QuickCreationProvider({
+  children,
+}: QuickCreationProviderProps) {
+  const context = useUser();
+
   const [shouldContinue, setContinue] = useState<boolean>(false);
-  // const [shownIntro, setShownIntro] = useState(false);
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id_message: "intro",
       sender: "bot",
-      text: "Ok, para poder crear un plan personalizado para ti necesitaré que respondas las siguientes preguntas:",
+      text: "Ok, solo necesito unos datos más:",
       typeOfAnswer: null,
     },
   ]);
-  const [values, setValues] = useState<Info>({
-    age: 0,
-    weight: 0,
-    height: 0,
-    daysOfTraining: 0,
-    goal: "",
+
+  const [values, setValues] = useState<any>({
+    daysOfTraining: 0 || null,
     trainingTime: "",
-    sex: "",
     extra: "",
-    bodyType: "",
-    difficulty: "",
   });
 
   const [waitingForAnswer, setWaitingForAnswer] = useState(false);
@@ -76,56 +75,43 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
     valuesRef.current = values;
   }, [values]);
 
+  // Calcular la edad del user
+  function calculateAge(dateOfBirth: string | Date): number {
+
+    const birthDate = new Date(dateOfBirth);
+    const today = new Date();
+    const age = today.getFullYear() - birthDate.getFullYear();
+
+    const hasBirthdayPassed =
+      today.getMonth() > birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() &&
+        today.getDate() >= birthDate.getDate());
+
+    return hasBirthdayPassed ? age : age - 1;
+  }
+
   // crea el plan con la info del user
   async function handleCreate() {
     await createPlan(
-      "normal",
+      "quick",
       valuesRef.current,
       setErrorInfo,
       addNewMessage,
       deleteMessages,
-      null,
+      {
+        age: calculateAge(context?.user?.date_of_birth as string) || null,
+        weight: (context?.user?.planData?.weight as number) || null,
+        height: (context?.user?.planData?.height as number) || null,
+        goal: (context?.user?.planData?.goal as string) || null,
+        sex: (context?.user?.sex as string) || null,
+        bodyType: (context?.user?.planData?.bodyType as string) || null,
+        difficulty: (context?.user?.planData?.difficulty as string) || null,
+      },
     );
   }
 
   // MENSAJES
   const messagesToSend: Message[] = [
-    {
-      id_message: "años_bot",
-      sender: "bot",
-      text: <div>¿Cuántos años tienes?</div>,
-      typeOfAnswer: "number",
-    },
-    {
-      id_message: "sexo_bot",
-      sender: "bot",
-      text: <div>¿Cuál es tu género? (masculino, femenino, x)</div>,
-      typeOfAnswer: "string",
-    },
-    {
-      id_message: "peso_bot",
-      sender: "bot",
-      text: <div>¿Cuánto pesas en kilogramos?</div>,
-      typeOfAnswer: "number",
-    },
-    {
-      id_message: "altura_bot",
-      sender: "bot",
-      text: <div>¿Cuánto mides en centimetros?</div>,
-      typeOfAnswer: "number",
-    },
-    {
-      id_message: "dificultad_bot",
-      sender: "bot",
-      text: <div>¿Que dificultad te gustaria para tu plan (fácil, medio, difícil)?</div>,
-      typeOfAnswer: "string"
-    },
-    {
-      id_message: "bodyType_bot",
-      sender: "bot",
-      text: <div>¿Cuál es tu tipo de cuerpo?</div>,
-      typeOfAnswer: "select_bodyType",
-    },
     {
       id_message: "dias_bot",
       sender: "bot",
@@ -141,17 +127,6 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
         </div>
       ),
       typeOfAnswer: "select_hours",
-    },
-    {
-      id_message: "obj_bot",
-      sender: "bot",
-      text: (
-        <div>
-          ¿Cuál es tu objetivo corporal? ¿Tienes alguna zona específica que
-          mejorar?
-        </div>
-      ),
-      typeOfAnswer: "string",
     },
     {
       id_message: "extra_bot",
@@ -201,15 +176,10 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
       }
     }
     sendMessages();
-  }, [
-    shouldContinue,
-    waitingForAnswer,
-    finishedQuestions,
-    errorInfo,
-  ]);
+  }, [shouldContinue, waitingForAnswer, finishedQuestions, errorInfo]);
 
   return (
-    <ConversationContext.Provider
+    <QuickCreationContext.Provider
       value={{
         messages,
         setMessages,
@@ -221,16 +191,15 @@ export function ConversationProvider({ children }: ConversationProviderProps) {
         setFinishedQuestions,
         handleCreate,
         setContinue,
-        shouldContinue
+        shouldContinue,
       }}
     >
       {children}
-    </ConversationContext.Provider>
+    </QuickCreationContext.Provider>
   );
 }
 
-
-export function useConversation(): ConversationContextType {
-    const context = useContext(ConversationContext)
-    return context as ConversationContextType
+export function useQuickCreation(): ConversationContextType {
+  const context = useContext(QuickCreationContext);
+  return context as ConversationContextType;
 }

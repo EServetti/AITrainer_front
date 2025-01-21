@@ -4,12 +4,13 @@ function About() {
   return (
     <div className="main_about">
       <section className="about">
-       <span> Esta es la primera versión de “AITrainer” un proyecto creado por mi Emilio Servetti en el que utilicé varias herramientas, entre ellas:</span>
+       <span> Esta es la segunda versión de “AITrainer” un proyecto creado por mi Emilio Servetti en el que utilicé varias herramientas, entre ellas:</span>
         <ul>
           <li>Node.js con Express.</li>
           <li>Typescript.</li>
           <li>API de Open AI.</li>
           <li>React</li>
+          <li>MySQL</li>
         </ul>
       </section>
       <section className="contact">

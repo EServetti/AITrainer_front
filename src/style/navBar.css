@@ -2,6 +2,7 @@ nav {
     width: 100%;
     height: 70px;
     position: fixed; 
+    z-index: 100;
     top: 0;
     left: 0;
     display: flex;
@@ -12,24 +13,85 @@ nav {
     background-color: #F0F2F5;
 }
 
-a {
+nav a {
     text-decoration: none;
     color: #0078D7;
-}
-
-nav .about {
-    white-space: nowrap;
-    margin-right: 20%;
-}
-
-nav .home {
     white-space: nowrap;
 }
 
-.logo {
-    margin-right: auto;
-}
 
 .logo img {
     width: 50%;
+    min-width: 200px;
+}
+
+.user_navBar {
+    height: 55px;
+    width: 55px;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    position: fixed;
+    right: 20px;
+    top: 15px;
+    z-index: 1000;
+}
+
+.user_navBar button {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.user_navBar img {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.user_section {
+    height: 95vh;
+    width: 20%;
+    min-width: 250px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: white;
+    position: fixed;
+    right: 10px;
+    top: 5px;
+    z-index: 999;
+    border: 2px solid #0078D7;
+    border-radius: 5px;
+    padding-top: 70px;
+}
+
+.user_section a {
+    text-decoration: none;
+    color: #0078D7;
+    white-space: nowrap;
+    font-size: 1.3rem;
+}
+
+.user_section button {
+    color: #0078D7;
+    white-space: nowrap;
+    font-size: 1.3rem;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.user_section span {
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
 }

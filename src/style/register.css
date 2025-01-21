@@ -1,0 +1,131 @@
+.password {
+  width: 40%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+
+.first_pass {
+    border: 1px solid #0078d7;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+}
+
+.seccond_pass {
+    border: 1px solid #0078d7;
+    border-radius: 5px;
+}
+
+
+.password input {
+  width: 100%;
+  padding: 5px;
+}
+
+.password img {
+  width: 40%;
+}
+
+.password button {
+  background-color: transparent;
+  border: 1px solid #0078d7;
+  border-radius: 0 5px 5px 0;
+  border-left: none;
+}
+
+.main_register {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.main_register section {
+  flex: 1;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.should_register {
+  border-right: 1px solid #0078d7;
+  padding-right: 30px;
+  padding-top: 30px;
+}
+
+.register_form {
+  width: 80%;
+  min-width: 300px;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-right: 5%;
+  background-color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  gap: 10px;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0 10px 0 black;
+}
+
+.register_form span {
+  width: 100%;
+  display: flex;
+  justify-content:center;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.email {
+  width: calc(80% + 10px);
+  text-align: center;
+  box-sizing: border-box;
+  color: #0078d7;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #0078d7;
+}
+
+.first_name,
+.last_name,
+.sex,
+.date_of_birth {
+  width: 40%;
+  box-sizing: border-box;
+  color: #0078d7;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #0078d7;
+}
+
+.send_register {
+    width: calc(80% + 10px);
+    cursor: pointer;
+    color: #0078d7;
+    border: 1px solid #0078d7;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.continue_google {
+    width: calc(80% + 10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    gap: 20px;
+    border: 1px solid #0078d7;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.continue_google img {
+    width: 5%;
+    min-width: 25px;
+}

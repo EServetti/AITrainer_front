@@ -4,6 +4,9 @@ import "../style/main.css";
 import About from "../pages/about";
 import Aside from "./aside";
 import { useEffect, useState } from "react";
+import Register from "../pages/register";
+import Login from "../pages/login";
+import Account from "../pages/account";
 
 function Main() {
   const [displayAside, setDisplayAside] = useState(true);
@@ -33,6 +36,9 @@ function Main() {
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/about" Component={About} />
+        <Route path="/register" Component={Register}/>
+        <Route path="/login" Component={Login}/>
+        <Route path="/account" Component={Account}/>
       </Routes>
     </div>
   );

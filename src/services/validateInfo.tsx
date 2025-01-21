@@ -172,7 +172,7 @@ function validateInfo(
           ]);
           setValues((prevState: any) => ({
             ...prevState,
-            dificulty: value,
+            difficulty: value,
           }));
           setValueInp("");
           nextQuestion();
