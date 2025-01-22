@@ -1,9 +1,9 @@
 import "../style/login.css";
 import dumbbellsPhoto from "../assets/pexels-pixabay-260352.jpg";
 import { useEffect, useState } from "react";
-import google from "../assets/google.png";
+// import google from "../assets/google.png";
 import Password from "../components/passwordInput";
-import { path } from "../path";
+// import { path } from "../path";
 import login from "../services/loginAccount";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
@@ -45,10 +45,10 @@ function Login() {
     };
   }, []);
 
-  function handleGoogle(e: any) {
-    e.preventDefault();
-    location.replace(`${path}/google`);
-  }
+  // function handleGoogle(e: any) {
+  //   e.preventDefault();
+  //   location.replace(`${path}/google`);
+  // }
 
   function handleChange(e: any){
     const {name, value} = e.target
@@ -88,14 +88,14 @@ function Login() {
           />
           {errors && <span className="errors">{errors}</span>}
           <button className="send_login" onClick={handleClick}>Enviar</button>
-          <span
+          {/* <span
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
             o
           </span>
           <button className="continue_google_login" onClick={handleGoogle}>
             Continuar con Google <img src={google} alt="google" />
-          </button>
+          </button> */}
         </form>
       </section>
     </div>

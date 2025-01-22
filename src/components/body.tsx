@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Register from "../pages/register";
 import Login from "../pages/login";
 import Account from "../pages/account";
+import Verify from "../pages/verify";
 
 function Main() {
   const [displayAside, setDisplayAside] = useState(true);
@@ -39,6 +40,7 @@ function Main() {
         <Route path="/register" Component={Register}/>
         <Route path="/login" Component={Login}/>
         <Route path="/account" Component={Account}/>
+        <Route path="/verify/:email/:verifyCode" Component={Verify}/>
       </Routes>
     </div>
   );

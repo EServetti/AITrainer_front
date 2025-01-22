@@ -1,8 +1,8 @@
 import "../style/register.css";
-import google from "../assets/google.png";
+// import google from "../assets/google.png";
 import Password from "../components/passwordInput";
 import { useEffect, useState } from "react";
-import { path } from "../path";
+// import { path } from "../path";
 import { registerInfo } from "../types";
 import register from "../services/createAccount";
 import { useUser } from "../context/userContext";
@@ -30,10 +30,10 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState("");
 
-  function handleGoogle(e: any) {
-    e.preventDefault();
-    location.replace(`${path}/google`);
-  }
+  // function handleGoogle(e: any) {
+  //   e.preventDefault();
+  //   location.replace(`${path}/google`);
+  // }
 
   function handleChange(e: any) {
     const {name, value} = e.target
@@ -115,14 +115,14 @@ function Register() {
           </span>
           {errors && <span className="errors">{errors}</span>}
           <button className="send_register" onClick={handleRegister}>Enviar</button>
-          <span
+          {/* <span
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
             o
           </span>
           <button className="continue_google" onClick={handleGoogle}>
             Continuar con Google <img src={google} alt="google" />
-          </button>
+          </button> */}
         </form>
       </section>
     </div>

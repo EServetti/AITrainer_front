@@ -5,9 +5,12 @@ import "../style/account.css";
 import { useNavigate } from "react-router-dom";
 import { User_data } from "../types";
 import sendData from "../services/sendUserData";
+import userImage from "../assets/user.png"
 
 function Account() {
   const context = useUser();
+
+  const photo = context?.user?.photo ? context?.user?.photo : userImage;
 
   const navigate = useNavigate();
 
@@ -100,7 +103,7 @@ function Account() {
               </div>
               {context?.user?.email}
             </span>
-            <img src={context?.user?.photo} alt="user" />
+            <img src={photo} alt="user" />
           </span>
           {showForm ? (
             <>
