@@ -1,5 +1,5 @@
 import "../style/register.css";
-import google from "../assets/google.png";
+// import google from "../assets/google.png";
 import Password from "../components/passwordInput";
 import { useEffect, useState } from "react";
 import { path } from "../path";
@@ -115,14 +115,14 @@ function Register() {
           </span>
           {errors && <span className="errors">{errors}</span>}
           <button className="send_register" onClick={handleRegister}>Enviar</button>
-          <span
+          {/* <span
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
             o
           </span>
           <button className="continue_google" onClick={handleGoogle}>
             Continuar con Google <img src={google} alt="google" />
-          </button>
+          </button> */}
         </form>
       </section>
     </div>
