@@ -86,8 +86,8 @@ function Register() {
               <option disabled value="">
                 Género
               </option>
-              <option value="male">Masculino</option>
-              <option value="female">Femenino</option>
+              <option value="masculino">Masculino</option>
+              <option value="femenino">Femenino</option>
               <option value="x">No especificar</option>
             </select>
             <input
