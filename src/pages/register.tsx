@@ -2,7 +2,7 @@ import "../style/register.css";
 // import google from "../assets/google.png";
 import Password from "../components/passwordInput";
 import { useEffect, useState } from "react";
-import { path } from "../path";
+// import { path } from "../path";
 import { registerInfo } from "../types";
 import register from "../services/createAccount";
 import { useUser } from "../context/userContext";
@@ -30,10 +30,10 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState("");
 
-  function handleGoogle(e: any) {
-    e.preventDefault();
-    location.replace(`${path}/google`);
-  }
+  // function handleGoogle(e: any) {
+  //   e.preventDefault();
+  //   location.replace(`${path}/google`);
+  // }
 
   function handleChange(e: any) {
     const {name, value} = e.target
